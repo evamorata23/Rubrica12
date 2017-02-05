@@ -1,12 +1,20 @@
 package rubrica12.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Author {
-
+	
+	private int idAuthor;
 	private String nameAuthor;
 	private Date dateOfBirth;
 
+	public int getIdAuthor() {
+		return idAuthor;
+	}
+	public void setIdAuthor(int idAuthor) {
+		this.idAuthor = idAuthor;
+	}
+	
 	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}

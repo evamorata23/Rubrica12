@@ -1,12 +1,14 @@
-create table IF NOT EXISTS PAIS(
-	IdPais int auto_increment primary key,
-	PAIS VARCHAR(25),
-	IDIOMA int
+create table IF NOT EXISTS AUTHOR(
+	IDAUTHOR int auto_increment primary key,
+	NAMEAUTHOR VARCHAR(50),
+	DATEOFBIRTH DATE
 	);
 	
-create table IF NOT EXISTS IDIOMA(
-	IdIdioma int auto_increment primary key,
-	IDIOMA VARCHAR(25)
+create table IF NOT EXISTS BOOK(
+	IDBOOK int auto_increment primary key,
+	TITLE VARCHAR(50),
+	ISBN int,
+	IDAUTHOR int
 	);
 	
 	
