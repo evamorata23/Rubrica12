@@ -1,44 +1,99 @@
 package rubrica12.webpages;
 
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.list.ListItem;
+import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.navigation.paging.PagingNavigator;
+import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.ListDataProvider;
+import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import rubrica12.model.Author;
+import rubrica12.repository.Repository;
+import rubrica12.repository.RepositoryAuthor;
+import rubrica12.service.AuthorService;
 
 @SuppressWarnings({ "unchecked", "rawtypes", "serial" })
 public class ListAuthorPage extends WebPage {
-
+	private static final long serialVersionUID = -1935854748907274886L;
+	
+	@SpringBean
+	AuthorService authorService;
+	
+	private static final Logger logger = LogManager.getLogger(ListAuthorPage.class.getName());
+	
+	private String currentNameSearch = null;
+	
+	private List listAuthor = Collections.emptyList();
+	
+	public ListAuthorPage(PageParameters parameters) {
+		currentNameSearch = parameters.get("currentSearchTerm").toString();
+		logger.debug("Cargando la pagina con el parametro " + currentNameSearch);
+		initComponents();
+	}
+	
 	public ListAuthorPage() {
-        ArrayList list = new ArrayList();
-        
-        Author author = new Author();
-        author.setNameAuthor(null); //Hay que cogerlo de los datos enviandos en el "submit" del formulario
-        author.setDateOfBirth(null); //Hay que cogerlo de los datos enviandos en el "submit" del formulario
-        
-        //CONEXION AL REPOSITORY DE AUTHORES PARA REALIZAR LA BUSQUEDA CON ESTOS DATOS.
-        //Esta busqueda devolverá un listado de coincidencias que añadiremos asignaremos a "list".
-        //list = resultado;
-        
-        final DataView dataView = new DataView("simple", new ListDataProvider(list)) {
+		initComponents();
+	}
+
+	private void initComponents() {
+		addForm();
+		addFeedBackPanel();
+		addListAuthorView();
+	}
+	
+	private void addForm() {
+		Form form = new Form("formListAuthor", new CompoundPropertyModel(new Author())) {
 			@Override
-			protected void populateItem(Item item) {
-				final Author author = (Author) item.getModelObject();
-                item.add(new Label("nameAuthor", author.getNameAuthor()));
-                item.add(new Label("dateOfBirth", author.getDateOfBirth()));
+			protected void onSubmit() {
+				super.onSubmit();
+				listAuthor.clear();
+				PageParameters pageParameters = new PageParameters();
+				pageParameters.add("currentSearchTerm", ((Author) getModelObject()).getNameAuthor());
+				pageParameters.add("currentSearchTerm", ((Author) getModelObject()).getDateOfBirth());
+				setResponsePage(ListAuthorPage.class, pageParameters);
 			}
-        };
- 
-         dataView.setItemsPerPage(10);
-         
-        add(dataView);
- 
-        add(new PagingNavigator("navigator", dataView));
-    }
+		};
+		form.add(new TextField("nameAuthor"));
+		form.add(new TextField("dateOfBirth"));
+		add(form);
+	}
+
+	private void addFeedBackPanel() {
+		FeedbackPanel feedbackPanel = new FeedbackPanel("feedbackMessage");
+		add(feedbackPanel);
+	}
+
+	private void addListAuthorView() {
+		Author author = new Author();// service.newEntity()
+		author.setNameAuthor(currentNameSearch);
+		//author.setDateOfBirth(currentNameSearch);
+		listAuthor = authorService.findAuthorsByName(author.getNameAuthor());
+		//listAuthor = authorService.findAuthorsByName(author.getDateOfBirth());
+		ListView listview = new ListView("author-group", listAuthor) {
+			@Override
+			protected void populateItem(ListItem item) {
+				Author author = (Author) item.getModelObject();
+				item.add(new Label("authorName", author.getNameAuthor()));
+				item.add(new Label("dateOfBirth", author.getDateOfBirth()));
+			}
+		};
+		add(listview);
+	}
 
 }

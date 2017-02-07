@@ -9,10 +9,10 @@ import java.util.ArrayList;
 
 import rubrica12.model.Author;
 import rubrica12.model.Book;
-
+@org.springframework.stereotype.Repository
 public class RepositoryBook extends Repository{
 
-	public void insertAuthor(Book book){
+	public void insertBook(Book book){
 		Connection conn = manager.open(jdbcUrl);
 		PreparedStatement preparedStatement = null;
 		try{
