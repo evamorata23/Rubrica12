@@ -2,6 +2,7 @@ package rubrica12.service;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,12 +24,8 @@ public class BookService {
 		repB.insertBook(book);
 	}
 	
-	public ArrayList<Book> findBooksByTitle(String title) {
-		return repB.findBooksByTitle(title);
-	}
-	
-	public ArrayList<Book> findBooksByIsbn(int isbn) {
-		return repB.findBooksByIsbn(isbn);
+	public List findBooks(Book book) {
+		return repB.findBooks(book);
 	}
 	
 	public ArrayList<Book> findBooksByidAuthor(int idAuthor) {

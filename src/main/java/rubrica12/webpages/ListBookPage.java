@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.wicket.markup.html.WebPage;
@@ -30,32 +31,32 @@ import rubrica12.service.BookService;
 @SuppressWarnings({ "unchecked", "rawtypes", "serial" })
 public class ListBookPage extends WebPage {
 	private static final long serialVersionUID = -1935854748907274886L;
-	
+
 	@SpringBean
 	BookService bookService;
-	
-private static final Logger logger = LogManager.getLogger(ListBookPage.class.getName());
-	
+
+	private static final Logger logger = LogManager.getLogger(ListBookPage.class.getName());
+
 	private String currentNameSearchBook = null;
-	
+
 	private List listBook = Collections.emptyList();
-	
+
 	public ListBookPage(PageParameters parameters) {
 		currentNameSearchBook = parameters.get("currentSearchTerm").toString();
 		logger.debug("Cargando la pagina con el parametro " + currentNameSearchBook);
 		initComponents();
 	}
-	
+
 	public ListBookPage() {
 		initComponents();
 	}
-	
+
 	private void initComponents() {
 		addFormBook();
 		addFeedBackPanel();
 		addListBookView();
 	}
-	
+
 	private void addFormBook() {
 		Form form = new Form("formListBook", new CompoundPropertyModel(new Book())) {
 			@Override
@@ -74,20 +75,20 @@ private static final Logger logger = LogManager.getLogger(ListBookPage.class.get
 		form.add(new TextField("idAuthor"));
 		add(form);
 	}
-	
+
 	private void addFeedBackPanel() {
 		FeedbackPanel feedbackPanel = new FeedbackPanel("feedbackMessage");
 		add(feedbackPanel);
 	}
-	
+
 	private void addListBookView() {
 		Book book = new Book();// service.newEntity()
 		book.setTitle(currentNameSearchBook);
-		//book.setIsbn(currentNameSearchBook);
-		//book.setIdAuthor(currentNameSearchBook);
-		listBook = bookService.findBooksByTitle(book.getTitle());
-		listBook = bookService.findBooksByIsbn(book.getIsbn());
 		listBook = bookService.findBooksByidAuthor(book.getIdAuthor());
+		if (StringUtils.isNumeric(currentNameSearchBook)) {
+			book.setIsbn(Integer.parseInt(currentNameSearchBook));
+		}
+		listBook = bookService.findBooks(book);
 		ListView listview = new ListView("author-group", listBook) {
 			@Override
 			protected void populateItem(ListItem item) {

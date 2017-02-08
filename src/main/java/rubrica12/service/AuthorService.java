@@ -3,8 +3,6 @@ package rubrica12.service;
 import java.sql.Date;
 import java.util.ArrayList;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +21,8 @@ public class AuthorService {
 		repA.insertAuthor(author);
 	}
 	
-	public ArrayList<Author> findAuthorsByName(String name){
-		return repA.findAuthorsByName(name);
+	public ArrayList<Author> findAuthors(Author author) {
+		return repA.findAuthors(author);
 	}
 	
 	public ArrayList<Author> findAuthorsByDate(Date date) {

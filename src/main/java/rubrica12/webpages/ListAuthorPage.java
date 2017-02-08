@@ -1,7 +1,6 @@
 package rubrica12.webpages;
 
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -83,7 +82,7 @@ public class ListAuthorPage extends WebPage {
 		Author author = new Author();// service.newEntity()
 		author.setNameAuthor(currentNameSearch);
 		//author.setDateOfBirth(currentNameSearch);
-		listAuthor = authorService.findAuthorsByName(author.getNameAuthor());
+		listAuthor = authorService.findAuthors(author);
 		//listAuthor = authorService.findAuthorsByName(author.getDateOfBirth());
 		ListView listview = new ListView("author-group", listAuthor) {
 			@Override
