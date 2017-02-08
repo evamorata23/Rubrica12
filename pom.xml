@@ -278,7 +278,7 @@
 		<junit.version>4.12</junit.version>
 
 		<!-- The main class to start by executing java -jar -->
-		<start-class>rubrica12.WicketWebApplication</start-class>
+		<start-class>rubrica12.configuration.WicketWebApplication</start-class>
 	</properties>
 
 </project>
