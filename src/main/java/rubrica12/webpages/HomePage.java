@@ -16,6 +16,7 @@ import rubrica12.repository.Repository;
 public class HomePage extends WebPage {
 	@SpringBean
 	Repository repo;
+	
 
 	public HomePage() {
 		add(new BookmarkablePageLink<String>("Insertar Autor", AuthorPage.class));

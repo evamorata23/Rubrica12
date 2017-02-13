@@ -39,9 +39,9 @@ public class RepositoryAuthor extends Repository {
 		ResultSet resultSet = null;
 		try {
 			preparedStatement = conn
-					.prepareStatement("SELECT * FROM AUTHOR WHERE DATEOFBIRTH = ? OR NAMEAUTHOR like '%?%'");
+					.prepareStatement("SELECT * FROM AUTHOR WHERE DATEOFBIRTH = ? OR NAMEAUTHOR like ?");
 			preparedStatement.setDate(1, author.getDateOfBirth());
-			preparedStatement.setString(2, author.getNameAuthor());
+			preparedStatement.setString(2, "%" + author.getNameAuthor() + "%");
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				Author authorTmp = new Author();

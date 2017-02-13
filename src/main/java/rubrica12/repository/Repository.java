@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import rubrica12.connection.ConnectionH2;
 import rubrica12.connection.ConnectionManager;
 
-@org.springframework.stereotype.Repository
+
 public class Repository {
 	
 	protected static final String jdbcUrl = "jdbc:h2:file:./src/main/resources/test";

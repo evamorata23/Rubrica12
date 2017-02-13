@@ -38,7 +38,7 @@ public class RepositoryBook extends Repository {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		try {
-			preparedStatement = conn.prepareStatement("SELECT * FROM BOOK WHERE IDAUTHOR like '%?%'");
+			preparedStatement = conn.prepareStatement("SELECT * FROM BOOK WHERE IDAUTHOR  = ?");
 			preparedStatement.setInt(1, idAuthor);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
