@@ -1,4 +1,4 @@
-package rubrica12.configuration;
+package rubrica12;
 
 import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;

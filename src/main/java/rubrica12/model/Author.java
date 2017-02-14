@@ -1,8 +1,9 @@
 package rubrica12.model;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Author {
+public class Author implements Serializable{
 	
 	private int idAuthor;
 	private String nameAuthor;

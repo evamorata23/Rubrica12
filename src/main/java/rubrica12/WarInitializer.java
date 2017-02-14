@@ -1,4 +1,4 @@
-package rubrica12.configuration;
+package rubrica12;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;

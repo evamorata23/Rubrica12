@@ -18,17 +18,15 @@ public class BookService {
 	@Autowired
 	RepositoryBook repositoryBook;
 	
-	private RepositoryBook repB = new RepositoryBook();
-	
 	public void insertBook(Book book){
-		repB.insertBook(book);
+		repositoryBook.insertBook(book);
 	}
 	
 	public List findBooks(Book book) {
-		return repB.findBooks(book);
+		return repositoryBook.findBooks(book);
 	}
 	
 	public ArrayList<Book> findBooksByidAuthor(int idAuthor) {
-		return repB.findBooksByidAuthor(idAuthor);
+		return repositoryBook.findBooksByidAuthor(idAuthor);
 	}
 }

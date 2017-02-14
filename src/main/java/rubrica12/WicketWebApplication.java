@@ -1,4 +1,4 @@
-package rubrica12.configuration;
+package rubrica12;
 
 
 import org.apache.logging.log4j.LogManager;

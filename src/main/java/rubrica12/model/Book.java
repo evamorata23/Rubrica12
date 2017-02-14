@@ -1,6 +1,8 @@
 package rubrica12.model;
 
-public class Book {
+import java.io.Serializable;
+
+public class Book implements Serializable{
 	
 	private int idBook;
 	private String title;

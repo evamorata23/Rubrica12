@@ -15,17 +15,15 @@ public class AuthorService {
 	@Autowired
 	RepositoryAuthor repositoryAuthor;
 	
-	private RepositoryAuthor repA = new RepositoryAuthor();
-	
 	public void insertAuthor(Author author){
-		repA.insertAuthor(author);
+		repositoryAuthor.insertAuthor(author);
 	}
 	
 	public ArrayList<Author> findAuthors(Author author) {
-		return repA.findAuthors(author);
+		return repositoryAuthor.findAuthors(author);
 	}
 	
 	public ArrayList<Author> findAuthorsByDate(Date date) {
-		return repA.findAuthorsByDate(date);
+		return repositoryAuthor.findAuthorsByDate(date);
 	}
 }
