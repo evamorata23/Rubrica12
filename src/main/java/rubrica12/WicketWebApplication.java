@@ -46,9 +46,6 @@ public class WicketWebApplication extends WebApplication {
 		return HomePage.class;
     }
 
-    
-    
-    
     @Override
     protected void init() {
         super.init();

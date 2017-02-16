@@ -82,7 +82,7 @@ public class ListBookPage extends WebPage {
 			book.setIsbn(Integer.parseInt(currentNameSearchBook));
 		}
 		listBook = bookService.findBooks(book);
-		ListView listview = new ListView("author-group", listBook) {
+		ListView listview = new ListView("book-group", listBook) {
 			@Override
 			protected void populateItem(ListItem item) {
 				Book book = (Book) item.getModelObject();

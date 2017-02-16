@@ -64,12 +64,12 @@ public class RepositoryBook extends Repository {
 		ResultSet resultSet = null;
 		try {
 			StringBuffer sb = new StringBuffer();
-			sb.append("SELECT * FROM BOOK WHERE TITTLE like '%?%'");
+			sb.append("SELECT * FROM BOOK WHERE TITLE like ?");
 			if (book.getIsbn() != 0) {
 				sb.append("OR ISBN like '%?%'");
 			}
 			preparedStatement = conn.prepareStatement(sb.toString());
-			preparedStatement.setString(1, book.getTitle());
+			preparedStatement.setString(1, "%" + book.getTitle() + "%");
 			if (book.getIsbn() != 0) {
 				preparedStatement.setInt(2, book.getIsbn());
 			}
